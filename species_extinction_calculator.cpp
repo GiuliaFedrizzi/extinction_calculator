@@ -76,7 +76,7 @@ int main()
         // End of repetitions for this genus.
         // Before moving on to the next one, give me some stats:
         cout<<"Of the genus with "<< species_in_genus << " species, "<< tot_survived << " survived, "<< tot_extinct << " went extinct."<<endl;
-        extfile << species_in_genus << " " << tot_survived/repetitions << " " << tot_extinct/repetitions << endl;  // probability of surviving
+        extfile << species_in_genus << " " << (double)tot_survived/(double)repetitions << " " << (double)tot_extinct/(double)repetitions << endl;  // probability of surviving
     }
 
 }
