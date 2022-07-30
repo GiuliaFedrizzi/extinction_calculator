@@ -1,2 +1,5 @@
 .vscode
 species_extinction_calculator
+pop*.csv
+*.png
+plotme.p

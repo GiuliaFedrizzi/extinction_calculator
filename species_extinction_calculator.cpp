@@ -36,17 +36,18 @@ int new_or_extinct(int n_of_species)
 
 int main()
 {
-    //srand(static_cast<size_t>(time(nullptr)));  
+    srand(static_cast<size_t>(time(nullptr)));    // truly random
 
-    int n_of_events = 10;
-    int repetitions = 10;
+    int n_of_events = 100;  // how many times I 'flip the coin' of extinction
+    int repetitions = 1e7;  // repeat many times to avoid variability
     int n_of_species;
     int sims = 0;
+    ofstream extfile("species_survived_extinct.csv"); // file
     for (int species_in_genus = 2; species_in_genus<22; species_in_genus+=2)  // repeat for different n of species in genus
     {
         int tot_extinct = 0;
         int tot_survived = 0;
-        cout<<"\n Species in Genus = "<<species_in_genus<<endl;
+        //cout<<"\n Species in Genus = "<<species_in_genus<<endl;
         int r=0;
         while (r<repetitions)
         {
@@ -56,18 +57,18 @@ int main()
             {
                 sims++;  // counter for simulations
                 n_of_species = new_or_extinct(n_of_species);
-                cout<<n_of_species<<" ";
+                //cout<<n_of_species<<" ";
                 tstep++;
                 if (n_of_species < 1)  // when all the species are extinct
                 {
-                    cout<<". All species extinct, t = "<<tstep<<endl;
+                    //cout<<". All species extinct, t = "<<tstep<<endl;
                     tot_extinct++;
                     break;
                 }
             }
             if (n_of_species>0)
             {
-                cout<<"genus survived!"<<endl;
+                //cout<<"genus survived!"<<endl;
                 tot_survived++;
             }
         r++;  // increase counter for repetitions
@@ -75,6 +76,7 @@ int main()
         // End of repetitions for this genus.
         // Before moving on to the next one, give me some stats:
         cout<<"Of the genus with "<< species_in_genus << " species, "<< tot_survived << " survived, "<< tot_extinct << " went extinct."<<endl;
+        extfile << species_in_genus << " " << tot_survived/repetitions << " " << tot_extinct/repetitions << endl;  // probability of surviving
     }
 
 }
