@@ -2,4 +2,5 @@
 species_extinction_calculator
 pop*.csv
 *.png
-plotme.p
+a.out
+species_extinction_plot1

@@ -15,20 +15,20 @@
 using namespace std;
 
 int new_or_extinct(int n_of_species)
-// with a 0.5 chance each, add or subtract a species
+/* with a 0.5 chance each, add or subtract a species from the initial number of species */
 {
-	int num;  // initialise num, which is going to be even or odd;
+	int num;  // initialise num, which is going to be the mod of rand/2, so 0 if rand is even and 1 if rand is odd;
     rand();
-	num = rand() % 2;
+	num = rand() % 2;  // now num can be 0 or 1
 
-	if (num)
+	if (num)  // if it's 1
     {
-	    n_of_species++;
+	    n_of_species++;  // increase the num of species in the genus
 		//cout << "New Species" << endl;
     }
 	else
 	{
-	    n_of_species--;
+	    n_of_species--;  // decrease the num of species in the genus (one goes extinct)
 		//cout << "Species goes extinct" << endl;
 	}
 	return n_of_species;
@@ -39,11 +39,11 @@ int main()
     srand(static_cast<size_t>(time(nullptr)));    // truly random
 
     int n_of_events = 100;  // how many times I 'flip the coin' of extinction
-    int repetitions = 1e7;  // repeat many times to avoid variability
+    int repetitions = 1e8;  // repeat many times to avoid variability
     int n_of_species;
-    int sims = 0;
+    // int sims = 0;
     ofstream extfile("species_survived_extinct.csv"); // file
-    for (int species_in_genus = 2; species_in_genus<22; species_in_genus+=2)  // repeat for different n of species in genus
+    for (int species_in_genus = 2; species_in_genus<32; species_in_genus+=2)  // repeat for different n of species in genus
     {
         int tot_extinct = 0;
         int tot_survived = 0;
@@ -55,7 +55,7 @@ int main()
             int times, tstep = 0;
             while (tstep < n_of_events)
             {
-                sims++;  // counter for simulations
+                // sims++;  // counter for simulations
                 n_of_species = new_or_extinct(n_of_species);
                 //cout<<n_of_species<<" ";
                 tstep++;

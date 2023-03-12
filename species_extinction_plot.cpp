@@ -45,85 +45,29 @@ int main()
 {
     //srand(static_cast<size_t>(time(nullptr)));  
 
-    int n_of_events = 10;
-    int repetitions = 10;
-    int n_of_species;
-    int sims = 0;
-    //ofstream extfile("extinct_or_survived.csv");  // file that will be saved
-    // for (int t=1;t<n_of_events+1;t++)
-    // {
-    //     extfile<<t<<" ";
-    // }
-    // extfile<<endl;
+    int n_of_events = 40;   // at each event, either we lose 1 species or we gain a new one
+    int repetitions = 1;    // how many times I run the simulations
+    int n_of_species;       // to start with 
 
-    for (int species_in_genus = 2; species_in_genus<22; species_in_genus+=2)  // repeat for different n of species in genus
+    for (int species_in_genus = 2; species_in_genus<5; species_in_genus+=2)  // repeat for different n of species in genus
     {
-
-        int a[n_of_events][repetitions+1]; // initialise 2d vector to store data. Columns needed are n of repetitions + 1 for time
-        fill(a[0], a[0] + n_of_events * (repetitions), 0);   // fill with zeros (n_of_events * repetitions is the size)
-
-        int tot_extinct = 0; // reset counters for extinct and surviving species
-        int tot_survived = 0;
-        int wrote_time = 0;
-        //cout<<"\n Species in Genus = "<<species_in_genus<<endl;
-        int r=0;
-        while (r<repetitions)
-        {
-            int i = 10; int j = 10;
-
-            n_of_species = species_in_genus;  // the initial value for the number of species is taken from the for loop
-            int times, tstep = 0;
-            while (tstep < n_of_events+1)
-            {
-                sims++;  // counter for simulations
-                n_of_species = new_or_extinct(n_of_species);
-                //extfile<<n_of_species<<" ";  // write it to file
-                a[tstep][r+1] = n_of_species;  // fill the array. r+1 because the first column (0) is reserved for time
-                tstep++;
-                if (wrote_time == 0) // haven't saved 'time' in the array yet
-                    {
-                        for (int t = 1;t<n_of_events+1;t++)
-                            a[t][0] = t;
-                        wrote_time = 1;
-                    }
-                if (n_of_species < 1)  // when all the species are extinct
-                {
-                    //cout<<". All species extinct, t = "<<tstep<<endl;
-                    tot_extinct++;
-                    break;
-                }
-            }
-            if (n_of_species>0)
-            {
-                //cout<<"genus survived!"<<endl;
-                tot_survived++;
-            }
-        r++;  // increase counter for repetitions
-        //extfile<<endl;
-        }
-        // End of repetitions for this genus.
-        // Before moving on to the next one, give me some stats:
-        cout<<"#Of the genus with "<< species_in_genus << " species, "<< tot_survived << " survived, "<< tot_extinct << " went extinct."<<endl;
-        
-        // and write to file
-
         std::ostringstream oss;
         oss << "pop"<< setw(3) << setfill('0') << species_in_genus  << ".csv"; // set name, pad with zeros
         std::string species_in_genus_s = oss.str();
-        ofstream popfile(species_in_genus_s);
+        ofstream popfile(species_in_genus_s);  // population file
 
-        for (int x=0;x<n_of_events+1;x++)
+            n_of_species = species_in_genus;  // the initial value for the number of species is taken from the for loop
+            int tstep = 0;
+            while (tstep < n_of_events+1)
             {
-                for (int y=0;y<repetitions+2;y++)
+                n_of_species = new_or_extinct(n_of_species);
+                popfile << tstep << " " << n_of_species << endl;
+                tstep++;
+
+                if (n_of_species < 1)  // when all the species are extinct
                 {
-                    popfile << a[x][y];
-                    popfile << " ";
+                    break;
                 }
-                popfile << endl;
-                
             }
-        
-
     }
-
 }
