@@ -10,5 +10,5 @@ Starting from a population of species (one genus), we assume that at every "even
 
  `species_extinction_calculator.cpp` (numerically) calculates the probability that one genus with `species_in_genus` species will survive after a certain `n_of_events` events. `plotme.p` plots the generated data by typing ```gnuplot plotme.p```.
 
- `species_extinction_plot.cpp` is a script that generates csv files that can be plotted to visualise the trend of species in one genus in time.
+ `species_extinction_plot.cpp` is a script that generates csv files that can be plotted to visualise the trend in time of the number of species in one genus.
 

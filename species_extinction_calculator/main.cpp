@@ -12,27 +12,10 @@
 #include<cstdlib>
 #include <fstream>
 
+
 using namespace std;
 
-int new_or_extinct(int n_of_species)
-/* with a 0.5 chance each, add or subtract a species from the initial number of species */
-{
-	int num;  // initialise num, which is going to be the mod of rand/2, so 0 if rand is even and 1 if rand is odd;
-    rand();
-	num = rand() % 2;  // now num can be 0 or 1
-
-	if (num)  // if it's 1
-    {
-	    n_of_species++;  // increase the num of species in the genus
-		//cout << "New Species" << endl;
-    }
-	else
-	{
-	    n_of_species--;  // decrease the num of species in the genus (one goes extinct)
-		//cout << "Species goes extinct" << endl;
-	}
-	return n_of_species;
-}
+#include "../functions/extinction_functions.hpp"
 
 int main()
 {
@@ -77,6 +60,7 @@ int main()
         // Before moving on to the next one, give me some stats:
         cout<<"Of the genus with "<< species_in_genus << " species, "<< tot_survived << " survived, "<< tot_extinct << " went extinct."<<endl;
         extfile << species_in_genus << " " << (double)tot_survived/(double)repetitions << " " << (double)tot_extinct/(double)repetitions << endl;  // probability of surviving
+        cout << species_in_genus << " " << (double)tot_survived/(double)repetitions << " " << (double)tot_extinct/(double)repetitions << endl;  // probability of surviving
     }
 
 }

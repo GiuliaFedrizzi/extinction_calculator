@@ -1,6 +1,14 @@
 .vscode
-species_extinction_calculator
+
+# output files
 pop*.csv
 *.png
+
+# .o files
+*.o
+
+# executables
+extinction_plot
 a.out
 species_extinction_plot1
+species_extinction_calculator
